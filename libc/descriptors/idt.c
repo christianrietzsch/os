@@ -1,50 +1,56 @@
 #include "../io/io.h"
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned long uint32_t;
 
-#define IDT_ENTRIES 256
+struct idt_entry {
+  uint16_t base_lo;
+  uint16_t sel;
+  uint8_t always0;
+  uint8_t flags;
+  uint16_t base_hi;
+} __attribute__((packed));
 
-struct idt_entry 
-  {
-    unsigned short base_low;
-    unsigned short segment;
-    unsigned char always0;
-    unsigned char flags;
-    unsigned short base_high;
-  } __attribute__((packed));
+struct idt_ptr {
+  uint16_t limit;
+  uint32_t base;
+} __attribute__((packed));
 
-static struct idt_entry idt[IDT_ENTRIES];
+struct idt_entry idt[256];
+struct idt_ptr idtp;
 
-void int_handler()
+void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags)
 {
-  kprintf("Ein Interrupt!\n");
-  while(1);
-}
-
-void set_gate_entry(unsigned char num, unsigned long base, unsigned short segment, unsigned char flags) 
-{
-  idt[num].base_high = (base & 0xFFFF);
-  idt[num].base_low = (base >> 16) & 0xFFFF;
-
-  idt[num].always0 = 0;
-  idt[num].segment = segment;
+  idt[num].base_lo = base & 0xFFFF;
+  idt[num].base_hi = (base >> 16) & 0xFFFF;
+  idt[num].sel = sel;
+  idt[num].base_lo = 0;
   idt[num].flags = flags;
 }
 
-void load_idt(void)
-{    
-  struct {
-    unsigned short limit;
-    void* pointer;
-  } __attribute__((packed)) idtp = {
-    .limit = IDT_ENTRIES * 8 -1,
-    .pointer = idt,
-  };
-  asm volatile("lidt %0" : : "m" (idtp));
-  //asm volatile("sti");
+void idt_load(uint32_t idt_address)
+{
+  asm volatile("lidt (%0)" : : "r" (idt_address));
 }
 
-void init_idt(void)
+void isr_handler()
 {
-  set_gate_entry(0, (unsigned long) int_handler, 0x08, 0x8E);
-  //set_gate_entry(4, (unsigned long) int_handler, 0x0a, 0x8E);
-  load_idt();
+  kprintf("Hello!\n");
+  while(1);
+  
+}
+
+void *memset(void *dest, char val, unsigned long long count)
+{
+  char *temp = (char*) dest;
+  for(; count != 0; count--) *temp++ = val;
+  return dest;
+}
+
+void init_idt(void) {
+  idtp.limit = (sizeof(struct idt_entry) *256) -1;
+  idtp.base = (uint32_t)&idt; //should be int?
+  memset(&idt, 0, sizeof(struct idt_entry) * 256);
+  idt_load((uint32_t)&idtp);
+  idt_set_gate(0, (uint32_t)isr_handler, 0x08, 0x8E);
 }
