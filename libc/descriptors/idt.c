@@ -46,7 +46,5 @@ void init_idt(void)
 {
   set_gate_entry(0, (uint32_t) int_handler, 0x0a, 0x8E);
   set_gate_entry(4, (uint32_t) int_handler, 0x0a, 0x8E);
-  kprintf("Loading idt...");
   load_idt();
-  kprintf("done loading idt");
 }

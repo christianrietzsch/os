@@ -5,8 +5,7 @@ void init_descriptors()
 {
   init_gdt();
   init_idt();
-  //init_pic();
-  //should only be activated when the idt works
+  init_pic();
 }
 
 void init(void)
