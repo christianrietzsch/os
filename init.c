@@ -5,7 +5,8 @@ void init_descriptors()
 {
   init_gdt();
   init_idt();
-  init_pic();
+  //init_pic();
+  //should only be activated when the idt works
 }
 
 void init(void)
@@ -14,5 +15,4 @@ void init(void)
   clear();
   kprintf("Hello World!\n");
   //asm volatile("int $0x0");
-  kprintf("Test");
 }
