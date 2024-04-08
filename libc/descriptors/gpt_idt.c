@@ -38,7 +38,7 @@ void isr_handler()
   
 }
 
-void *memset(void *dest, char val, unsigned long long count)
+void *memset(void *dest, char val, size_t count)
 {
   char *temp = (char*) dest;
   for(; count != 0; count--) *temp++ = val;
@@ -47,8 +47,8 @@ void *memset(void *dest, char val, unsigned long long count)
 
 void init_idt(void) {
   idtp.limit = (sizeof(struct idt_entry) *256) -1;
-  idtp.base = (uint32_t)&idt; //should be int?
+  idtp.base = (uint32_t)&idt; 
   memset(&idt, 0, sizeof(struct idt_entry) * 256);
   idt_load((uint32_t)&idtp);
-  idt_set_gate(0, (uint32_t)isr_handler, 0x08, 0x8E);
+  idt_set_gate(0, (uint32_t)isr_handler, 0x0a, 0x8E);
 }
