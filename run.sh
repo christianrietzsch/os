@@ -1,4 +1,4 @@
 #/bin/bash
 sh scripts/make.sh
 sh scripts/start.sh
-rm kernel
+sh scripts/clean.sh

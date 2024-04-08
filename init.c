@@ -5,29 +5,15 @@ void init_descriptors()
 {
   init_gdt();
   init_idt();
-  init_pic();
-}
-
-void task_a(void) 
-{
-  while(1)
-  {
-    kprintf("A");
-  }
-}
-
-void task_b(void)
-{
-  while(1)
-  {
-    kprintf("B");
-  }
+  //init_pic();
+  //should only be activated when the idt works
 }
 
 void init(void)
 {
-  init_descriptors();
-  //asm volatile("int $0x0");
   clear();
-
+  init_descriptors();
+  kprintf("Hello World!\n");
+  asm volatile("int $0x0");
+  kprintf("Test");
 }

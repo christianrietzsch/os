@@ -10,6 +10,7 @@ typedef __builtin_va_list va_list;
 #define LINE_LENGTH 160
 #define LINE_ROWS 80
 #define COLOR 0x07
+#define TAB_LENGTH 8
 
 char* video = (char*)0xb8000;
 int current = 0;
@@ -26,11 +27,16 @@ void update_cursor()
 
 void print_char(char chr)
 {
-  //extra cases für \r und \n 
+  //more \ formatting options 
   if(chr == '\n') 
   {
     int line_rest = LINE_LENGTH-(current%LINE_LENGTH);
     current += line_rest;
+    return;
+  }
+  if(chr == '\t') 
+  {
+    current += TAB_LENGTH;
     return;
   }
   video[current] = chr;
@@ -89,9 +95,10 @@ void kprintf(char* str, ...)
   va_list args;
   va_start(args, str);
   int pos = search_char(str, '%', 0);
+  int last = 0;
   while(pos != -1)
   {
-    for(int i = 0; i < pos; i++) 
+    for(int i = last; i < pos; i++) 
     {
       print_char(str[i]);
     }
@@ -99,9 +106,11 @@ void kprintf(char* str, ...)
     if(specifier == 's') {print_string(va_arg(args, char*));}    
     if(specifier == 'c') {print_char(va_arg(args, int));}
     if(specifier == 'd') {print_int(va_arg(args, int));}
+    last = pos+2;
     pos = search_char(str, '%', pos+1);
   }
   va_end(args);
+  update_cursor();
 }
 // get up to % symbol; check for datatype: print datatype
 
