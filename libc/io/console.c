@@ -10,6 +10,7 @@ typedef __builtin_va_list va_list;
 #define LINE_LENGTH 160
 #define LINE_ROWS 80
 #define COLOR 0x07
+#define TAB_LENGTH 8
 
 char* video = (char*)0xb8000;
 int current = 0;
@@ -26,11 +27,16 @@ void update_cursor()
 
 void print_char(char chr)
 {
-  //extra cases für \r und \n 
+  //more \ formatting options 
   if(chr == '\n') 
   {
     int line_rest = LINE_LENGTH-(current%LINE_LENGTH);
     current += line_rest;
+    return;
+  }
+  if(chr == '\t') 
+  {
+    current += TAB_LENGTH;
     return;
   }
   video[current] = chr;
