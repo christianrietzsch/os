@@ -89,9 +89,10 @@ void kprintf(char* str, ...)
   va_list args;
   va_start(args, str);
   int pos = search_char(str, '%', 0);
+  int last = 0;
   while(pos != -1)
   {
-    for(int i = 0; i < pos; i++) 
+    for(int i = last; i < pos; i++) 
     {
       print_char(str[i]);
     }
@@ -99,9 +100,11 @@ void kprintf(char* str, ...)
     if(specifier == 's') {print_string(va_arg(args, char*));}    
     if(specifier == 'c') {print_char(va_arg(args, int));}
     if(specifier == 'd') {print_int(va_arg(args, int));}
+    last = pos+2;
     pos = search_char(str, '%', pos+1);
   }
   va_end(args);
+  update_cursor();
 }
 // get up to % symbol; check for datatype: print datatype
 
