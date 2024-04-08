@@ -1,5 +1,5 @@
 #include "gdt.c"
-#include "gpt_idt.c"
+#include "idt.c"
 #include "pic.c"
 
 void init_gdt(void);

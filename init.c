@@ -11,8 +11,9 @@ void init_descriptors()
 
 void init(void)
 {
-  init_descriptors();
   clear();
+  init_descriptors();
   kprintf("Hello World!\n");
-  //asm volatile("int $0x0");
+  asm volatile("int $0x0");
+  kprintf("Test");
 }
