@@ -1,5 +1,5 @@
 #/bin/bash
 
 rm kernel
-rm boot/objects/init.o
-rm boot/objects/start.o
+rm boot/init.o
+rm boot/start.o
