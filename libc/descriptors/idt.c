@@ -1,5 +1,6 @@
 #include "../io/io.h"
 #include "../types/types.h"
+#include "../io/keyboard.h"
 
 #define IDT_ENTRIES 256
 
@@ -81,6 +82,20 @@ void handle_interrupt(struct cpu_state* cpu)
     {
       asm volatile("cli; hlt");
     }
+  } else {
+    if(cpu->intr >= 0x32 && cpu->intr <= 0x47)
+    {
+      // keyboard handler ? 
+      // does not get cpu state -> maybe diff with assembly 
+    }
+    if(cpu->intr >= 0x20 && cpu->intr <= 0x2f)
+    {
+      if(cpu->intr >= 0x28)
+      {
+        outb(0xa0, 0x20);
+      }
+      outb(0x20, 0x20);
+    }
   }
 }
 
@@ -129,20 +144,20 @@ void init_idt(void)
   set_gate_entry(18, (uint32_t) intr_stub_18, 0x0a, 0x8E);
   set_gate_entry(32, (uint32_t) intr_stub_32, 0x0a, 0x8E);
   set_gate_entry(33, (uint32_t) intr_stub_33, 0x0a, 0x8E);
-  //set_gate_entry(34, (uint32_t) intr_stub_34, 0x0a, 0x8E);
-  //set_gate_entry(35, (uint32_t) intr_stub_35, 0x0a, 0x8E);
-  //set_gate_entry(36, (uint32_t) intr_stub_36, 0x0a, 0x8E);
-  //set_gate_entry(37, (uint32_t) intr_stub_37, 0x0a, 0x8E);
-  //set_gate_entry(38, (uint32_t) intr_stub_38, 0x0a, 0x8E);
-  //set_gate_entry(39, (uint32_t) intr_stub_39, 0x0a, 0x8E);
-  //set_gate_entry(40, (uint32_t) intr_stub_40, 0x0a, 0x8E);
-  //set_gate_entry(41, (uint32_t) intr_stub_41, 0x0a, 0x8E);
-  //set_gate_entry(42, (uint32_t) intr_stub_42, 0x0a, 0x8E);
-  //set_gate_entry(43, (uint32_t) intr_stub_43, 0x0a, 0x8E);
-  //set_gate_entry(44, (uint32_t) intr_stub_44, 0x0a, 0x8E);
-  //set_gate_entry(45, (uint32_t) intr_stub_45, 0x0a, 0x8E);
-  //set_gate_entry(46, (uint32_t) intr_stub_46, 0x0a, 0x8E);
-  //set_gate_entry(47, (uint32_t) intr_stub_47, 0x0a, 0x8E);
+  set_gate_entry(34, (uint32_t) intr_stub_34, 0x0a, 0x8E);
+  set_gate_entry(35, (uint32_t) intr_stub_35, 0x0a, 0x8E);
+  set_gate_entry(36, (uint32_t) intr_stub_36, 0x0a, 0x8E);
+  set_gate_entry(37, (uint32_t) intr_stub_37, 0x0a, 0x8E);
+  set_gate_entry(38, (uint32_t) intr_stub_38, 0x0a, 0x8E);
+  set_gate_entry(39, (uint32_t) intr_stub_39, 0x0a, 0x8E);
+  set_gate_entry(40, (uint32_t) intr_stub_40, 0x0a, 0x8E);
+  set_gate_entry(41, (uint32_t) intr_stub_41, 0x0a, 0x8E);
+  set_gate_entry(42, (uint32_t) intr_stub_42, 0x0a, 0x8E);
+  set_gate_entry(43, (uint32_t) intr_stub_43, 0x0a, 0x8E);
+  set_gate_entry(44, (uint32_t) intr_stub_44, 0x0a, 0x8E);
+  set_gate_entry(45, (uint32_t) intr_stub_45, 0x0a, 0x8E);
+  set_gate_entry(46, (uint32_t) intr_stub_46, 0x0a, 0x8E);
+  set_gate_entry(47, (uint32_t) intr_stub_47, 0x0a, 0x8E);
   set_gate_entry(48, (uint32_t) intr_stub_48, 0x0a, 0x8E);
   load_idt();
 }

@@ -107,7 +107,7 @@ void kprintf(char* str, ...)
     if(specifier == 'c') {print_char(va_arg(args, int));}
     if(specifier == 'd') {print_int(va_arg(args, int));}
     last = pos+2;
-    pos = search_char(str, '%', pos+1);
+    pos = search_char(str, '%', pos+2);
   }
   va_end(args);
   update_cursor();

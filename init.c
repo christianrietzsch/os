@@ -12,8 +12,9 @@ void init(void)
 {
   init_descriptors();
   clear();
+  //kprintf("d\n", 404); // \n does not work if % is used before
   kprintf("Hello World!\n");
-  //kprintf("%d\n", 404); // \n does not work?
+  //kprintf("%d", 0x2A);
+
   //int e = 2 / 0;
-  asm volatile("int $0x48");
 }
