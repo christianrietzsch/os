@@ -13,8 +13,7 @@ void init(void)
   init_descriptors();
   clear();
   kprintf("Hello World!\n");
-  //asm volatile("int $0x48");
-  //int test = 2 / 0;
-  //asm volatile("int $0x4");
-  kprintf("Test");
+  //kprintf("%d\n", 404); // \n does not work?
+  //int e = 2 / 0;
+  asm volatile("int $0x48");
 }
