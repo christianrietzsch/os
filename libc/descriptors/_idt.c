@@ -36,8 +36,25 @@ struct cpu_state
 
 void handle_interrupt(struct cpu_state* cpu)
 {
-  kprintf("Interrupt: %d\n", cpu->intr);
-  kprintf("Error: %d\n", cpu->error);
+  kprintf("Test: %d", cpu->intr);
+  if(cpu->intr <= 0x1f)
+  {
+    kprintf("exception %d, Kernel angehalten!\n", cpu->intr);
+    //Hier den CPU-Zustand ausgeben
+    while(1)
+    {
+      asm volatile("cli; hlt");
+    }    
+  } else {
+    if(cpu->intr >= 0x20 && cpu->intr <= 0x2f)
+    {
+      if(cpu->intr >= 0x28)
+      {
+        outb(0xa0, 0x20);
+      }
+      outb(0x20, 0x20);
+    }
+  }
 }
 
 void set_gate_entry(uint8_t num, uint32_t base, uint16_t segment, uint8_t flags) 
