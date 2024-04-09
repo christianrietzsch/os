@@ -36,6 +36,7 @@ struct cpu_state
 
 void handle_interrupt(struct cpu_state* cpu)
 {
+  kprintf("Test: %d", cpu->intr);
   if(cpu->intr <= 0x1f)
   {
     kprintf("exception %d, Kernel angehalten!\n", cpu->intr);

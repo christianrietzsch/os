@@ -11,6 +11,7 @@
 
 .section .text
 .extern init
+.extern fault_handler
 
 .global _start
 _start:
@@ -248,8 +249,8 @@ isr_common_stub:
         push %eax      
 
         push %esp
-        add $4, esp
-        call _fault_handler
+        add $4, %esp
+        call fault_handler
 
         pop %eax
         pop %ebx
