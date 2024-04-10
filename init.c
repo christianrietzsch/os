@@ -6,6 +6,8 @@ void init_descriptors()
   init_gdt();
   init_idt();
   init_pic();
+  //init_keyboard();
+  // next : fix irqs and add keyboard handler in right position
 }
 
 void init(void)
@@ -15,6 +17,4 @@ void init(void)
   //kprintf("d\n", 404); // \n does not work if % is used before
   kprintf("Hello World!\n");
   //kprintf("%d", 0x2A);
-
-  //int e = 2 / 0;
 }
