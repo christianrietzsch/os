@@ -1,6 +1,5 @@
 #include "../io/io.h"
 #include "../types/types.h"
-#include "../io/keyboard.h"
 #include "cpu.h"
 
 #define IDT_ENTRIES 256

@@ -9,7 +9,7 @@ void init_descriptors()
   init_pic();
   kprintf("Initialised PIC\n");
   init_idt();
-  kprintf("Initialised IDT\n");
+  kprintf("Initialised IDT\n"); // \n funktioniert nicht ?
   //init_keyboard();
   // next : fix irqs and add keyboard handler in right position
 }
@@ -19,8 +19,9 @@ void init(void)
   clear();
   init_descriptors();
 
-  send_command(0x10);
-  send_command(0x11);
+  //#include "libc/io/keyboard.h"
+  //send_command(0x10);
+  //send_command(0x11);
   //clear();
   
   //kprintf("d\n", 404); // \n does not work if % is used before
