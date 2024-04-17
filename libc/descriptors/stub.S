@@ -6,9 +6,9 @@ intr_stub_\nr:
         jmp intr_common_handler
 .endm
 
-.macro irq nr
-.global irq\nr
-irq\nr:
+.macro irq_stub nr
+.global irq_stub_\nr
+irq_stub_\nr:
         pushl $\nr
         pushl $(\nr+32)
         jmp irq_common_stub
@@ -41,22 +41,22 @@ intr_stub 16
 intr_stub_error_code 17
 intr_stub 18
 
-irq 0       
-irq 1
-irq 2
-irq 3
-irq 4
-irq 5
-irq 6
-irq 7
-irq 8
-irq 9
-irq 10
-irq 11
-irq 12
-irq 13
-irq 14
-irq 15
+irq_stub 0       
+irq_stub 1
+irq_stub 2
+irq_stub 3
+irq_stub 4
+irq_stub 5
+irq_stub 6
+irq_stub 7
+irq_stub 8
+irq_stub 9
+irq_stub 10
+irq_stub 11
+irq_stub 12
+irq_stub 13
+irq_stub 14
+irq_stub 15
 
 intr_stub 48
 

@@ -25,22 +25,22 @@ extern void intr_stub_16(void);
 extern void intr_stub_17(void);
 extern void intr_stub_18(void);
 extern void intr_stub_48(void);
-extern void irq0(void);
-extern void irq1(void);
-extern void irq2(void);
-extern void irq3(void);
-extern void irq4(void);
-extern void irq5(void);
-extern void irq6(void);
-extern void irq7(void);
-extern void irq8(void);
-extern void irq9(void);
-extern void irq10(void);
-extern void irq11(void);
-extern void irq12(void);
-extern void irq13(void);
-extern void irq14(void);
-extern void irq15(void);
+extern void irq_stub_0(void);
+extern void irq_stub_1(void);
+extern void irq_stub_2(void);
+extern void irq_stub_3(void);
+extern void irq_stub_4(void);
+extern void irq_stub_5(void);
+extern void irq_stub_6(void);
+extern void irq_stub_7(void);
+extern void irq_stub_8(void);
+extern void irq_stub_9(void);
+extern void irq_stub_10(void);
+extern void irq_stub_11(void);
+extern void irq_stub_12(void);
+extern void irq_stub_13(void);
+extern void irq_stub_14(void);
+extern void irq_stub_15(void);
 
 struct idt_entry 
   {
@@ -105,7 +105,6 @@ struct cpu_state* irq_handler(struct cpu_state* cpu) {
   }
   if(cpu->intr == 33)
   {
-    kprintf("WOMP");
     uint8_t scancode = inb(0x60);
     print_letter(scancode);
     
@@ -202,22 +201,22 @@ void init_idt(void)
   set_gate_entry(16, (uint32_t) intr_stub_16, 0x0a, 0x8E);
   set_gate_entry(17, (uint32_t) intr_stub_17, 0x0a, 0x8E);
   set_gate_entry(18, (uint32_t) intr_stub_18, 0x0a, 0x8E);
-  set_gate_entry(32, (uint32_t) irq0, 0x0a, 0x8E);
-  set_gate_entry(33, (uint32_t) irq1, 0x0a, 0x8E);
-  set_gate_entry(34, (uint32_t) irq2, 0x0a, 0x8E);
-  set_gate_entry(35, (uint32_t) irq3, 0x0a, 0x8E);
-  set_gate_entry(36, (uint32_t) irq4, 0x0a, 0x8E);
-  set_gate_entry(37, (uint32_t) irq5, 0x0a, 0x8E);
-  set_gate_entry(38, (uint32_t) irq6, 0x0a, 0x8E);
-  set_gate_entry(39, (uint32_t) irq7, 0x0a, 0x8E);
-  set_gate_entry(40, (uint32_t) irq8, 0x0a, 0x8E);
-  set_gate_entry(41, (uint32_t) irq9, 0x0a, 0x8E);
-  set_gate_entry(42, (uint32_t) irq10, 0x0a, 0x8E);
-  set_gate_entry(43, (uint32_t) irq11, 0x0a, 0x8E);
-  set_gate_entry(44, (uint32_t) irq12, 0x0a, 0x8E);
-  set_gate_entry(45, (uint32_t) irq13, 0x0a, 0x8E);
-  set_gate_entry(46, (uint32_t) irq14, 0x0a, 0x8E);
-  set_gate_entry(47, (uint32_t) irq15, 0x0a, 0x8E);
+  set_gate_entry(32, (uint32_t) irq_stub_0, 0x0a, 0x8E);
+  set_gate_entry(33, (uint32_t) irq_stub_1, 0x0a, 0x8E);
+  set_gate_entry(34, (uint32_t) irq_stub_2, 0x0a, 0x8E);
+  set_gate_entry(35, (uint32_t) irq_stub_3, 0x0a, 0x8E);
+  set_gate_entry(36, (uint32_t) irq_stub_4, 0x0a, 0x8E);
+  set_gate_entry(37, (uint32_t) irq_stub_5, 0x0a, 0x8E);
+  set_gate_entry(38, (uint32_t) irq_stub_6, 0x0a, 0x8E);
+  set_gate_entry(39, (uint32_t) irq_stub_7, 0x0a, 0x8E);
+  set_gate_entry(40, (uint32_t) irq_stub_8, 0x0a, 0x8E);
+  set_gate_entry(41, (uint32_t) irq_stub_9, 0x0a, 0x8E);
+  set_gate_entry(42, (uint32_t) irq_stub_10, 0x0a, 0x8E);
+  set_gate_entry(43, (uint32_t) irq_stub_11, 0x0a, 0x8E);
+  set_gate_entry(44, (uint32_t) irq_stub_12, 0x0a, 0x8E);
+  set_gate_entry(45, (uint32_t) irq_stub_13, 0x0a, 0x8E);
+  set_gate_entry(46, (uint32_t) irq_stub_14, 0x0a, 0x8E);
+  set_gate_entry(47, (uint32_t) irq_stub_15, 0x0a, 0x8E);
   set_gate_entry(48, (uint32_t) intr_stub_48, 0x0a, 0x8E);
   load_idt();
 }
