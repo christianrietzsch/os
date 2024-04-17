@@ -23,7 +23,7 @@ static void send_command(uint8_t command)
 
 uint8_t translate_scancode(int set, uint16_t scancode);
 
-void irq_handler(uint8_t irq)
+void keyboard_handler(uint8_t irq)
 {
   uint8_t scancode;
   uint8_t keycode = 0;
@@ -77,7 +77,7 @@ uint8_t translate_scancode(int set, uint16_t scancode)
   {
     0, 27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b',
     '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n', 
-    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '’', 0, 
+    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '?', 0, 
     '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 0, '*',
     0, ' ', 0, 0, 0, 0, 0, 0, 0, 0, 0, '-', 0, 0, 0, '+', 0, 0, 0, 0, 0, 0,
     0, 0, 0

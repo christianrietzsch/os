@@ -3,6 +3,7 @@
 #include "keyboard.c"
 
 void init_keyboard();
-void irq_handler(uint8_t);
+void keyboard_handler(uint8_t);
+void send_command(uint8_t);
 
 #endif

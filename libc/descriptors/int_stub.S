@@ -6,6 +6,14 @@ intr_stub_\nr:
         jmp intr_common_handler
 .endm
 
+.macro irq nr
+.global irq\nr
+irq\nr:
+        pushl $\nr
+        pushl $(\nr+32)
+        jmp irq_common_stub
+.endm
+
 .macro intr_stub_error_code nr
 .global intr_stub_\nr
 intr_stub_\nr:
@@ -33,22 +41,22 @@ intr_stub 16
 intr_stub_error_code 17
 intr_stub 18
 
-intr_stub 32
-intr_stub 33
-intr_stub 34
-intr_stub 35
-intr_stub 36
-intr_stub 37
-intr_stub 38
-intr_stub 39
-intr_stub 40
-intr_stub 41
-intr_stub 42
-intr_stub 43
-intr_stub 44
-intr_stub 45
-intr_stub 46
-intr_stub 47
+irq 0       
+irq 1
+irq 2
+irq 3
+irq 4
+irq 5
+irq 6
+irq 7
+irq 8
+irq 9
+irq 10
+irq 11
+irq 12
+irq 13
+irq 14
+irq 15
 
 intr_stub 48
 
@@ -64,6 +72,7 @@ intr_common_handler:
 
         push %esp
         call handle_interrupt       
+        mov %eax, %esp
 
         pop %eax
         pop %ebx
@@ -72,6 +81,34 @@ intr_common_handler:
         pop %esi
         pop %edi
         pop %ebp
+
+
+        add $8, %esp
+
+        iret
+
+.extern irq_handler
+irq_common_stub:
+        push %ebp
+        push %edi
+        push %esi
+        push %edx
+        push %ecx
+        push %ebx
+        push %eax
+
+        push %esp
+        call irq_handler
+        mov %eax, %esp
+
+        pop %eax
+        pop %ebx
+        pop %ecx
+        pop %edx
+        pop %esi
+        pop %edi
+        pop %ebp
+
 
         add $8, %esp
 
