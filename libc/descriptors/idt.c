@@ -92,22 +92,32 @@ void print_letter(uint8_t scancode)
     case 0x11:
         kprintf("0");
         break;
+    default:
+        kprintf("%c", scancode);
+        break;
   }
 }
 
 struct cpu_state* irq_handler(struct cpu_state* cpu) {
-  kprintf("\nIRQ: %d", cpu->intr);
+  //kprintf("IRQ\n");
   outb(0x20, 0x20);
   if(cpu->intr < 40)
   {
     outb(0xA0, 0x20);
   }
+
   if(cpu->intr == 33)
   {
-    uint8_t scancode = inb(0x60);
-    print_letter(scancode);
-    
-  }
+    //kprintf("E");
+    unsigned char scancode = inb(0x60);
+    print_letter(scancode); 
+  } else if(cpu->intr == 32)
+    {
+      //timer
+    } else
+      {
+        kprintf("\nIRQ: %d", cpu->intr);
+      }
  return cpu;
 }
 

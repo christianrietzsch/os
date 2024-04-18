@@ -43,6 +43,18 @@ void print_char(char chr)
   video[current+1] = COLOR;
   current += 2;
   update_cursor();
+
+  if(current >= LINE_LENGTH*LINE_ROWS)
+  {
+    for(int i = current; i < LINE_LENGTH*LINE_ROWS; i++) 
+    {
+      video[current] = ' ';
+      video[current+1] = COLOR;
+      current += 2;
+    }
+    current = 0;
+    update_cursor();
+  }
 }
 
 void print_string(char* string)

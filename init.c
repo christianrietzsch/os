@@ -1,27 +1,30 @@
 #include "libc/descriptors/descriptors.h"
 #include "libc/io/io.h"
 #include "libc/std/bool.h"
+#include "libc/io/keyboard.h"
 
 void init_descriptors()
 {
   init_gdt();
-  kprintf("Initialised GDT\n");
+  kprintf("[Info]: Initialised GDT\n");
   init_pic();
-  kprintf("Initialised PIC\n");
+  kprintf("[Info]: Initialised PIC\n");
   init_idt();
-  kprintf("Initialised IDT\n"); // \n funktioniert nicht ?
-  //init_keyboard();
+  kprintf("[Info]: Initialised IDT\n\n");
+  init_keyboard();
   // next : fix irqs and add keyboard handler in right position
+}
+
+void info(const char* msg)
+{
+  kprintf("[Info]: %s\n", msg);
 }
 
 void init(void)
 {
   clear();
   init_descriptors();
-
-  //#include "libc/io/keyboard.h"
-  //send_command(0x10);
-  //send_command(0x11);
+  //send_command(0x03);
   //clear();
   
   //kprintf("d\n", 404); // \n does not work if % is used before
@@ -29,9 +32,26 @@ void init(void)
   //asm volatile("int $0x91");
   //asm volatile("int $0x48");
 
-  kprintf("%d", 0x2A);
-  kprintf("Hello");
+  //kprintf("%d", 0x2A);
+  //kprintf("Hello");
 
-  boolean t = true;
-  kprintf("%d", t);
+  //boolean t = true;
+  //kprintf("\n%d", t);
+  //info("Test"); 
+  //kprintf("E");
+
+  
+//  unsigned char c;
+//  unsigned char last = ' ';
+ while(1) {
+//    
+//    c = inb(0x60);    
+//    if(c != last) 
+//    {
+//    kprintf("%c", c);
+//    last = c;
+//    }
+//
+//  // funktioniert nicht, da irq33 nicht aufgerufen wird
+  }
 }

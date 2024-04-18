@@ -9,7 +9,10 @@ void init_keyboard(void)
 
   while (inb(0x64) & 0x1)
   {
-    inb(0x60);
+    for(int i = 0; i< 10; i++)
+    {
+      inb(0x60);
+    }
   }
 
   send_command(0xF4);
