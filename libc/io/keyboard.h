@@ -3,7 +3,7 @@
 #include "keyboard.c"
 
 void init_keyboard();
-void keyboard_handler(uint8_t);
+void print_letter(unsigned char);
 void send_command(uint8_t);
 
 #endif

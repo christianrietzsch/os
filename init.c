@@ -1,6 +1,5 @@
 #include "libc/descriptors/descriptors.h"
 #include "libc/io/io.h"
-#include "libc/std/bool.h"
 #include "libc/io/keyboard.h"
 
 void init_descriptors()
@@ -10,8 +9,10 @@ void init_descriptors()
   init_pic();
   kprintf("[Info]: Initialised PIC\n");
   init_idt();
-  kprintf("[Info]: Initialised IDT\n\n");
+  kprintf("[Info]: Initialised IDT\n");
   init_keyboard();
+  kprintf("[Info]: Initialised Keyboard\n");
+  kprintf("\n\n");
   // next : fix irqs and add keyboard handler in right position
 }
 
@@ -40,10 +41,11 @@ void init(void)
   //info("Test"); 
   //kprintf("E");
 
+  while(1) {    
+  }
   
 //  unsigned char c;
 //  unsigned char last = ' ';
- while(1) {
 //    
 //    c = inb(0x60);    
 //    if(c != last) 
@@ -53,5 +55,8 @@ void init(void)
 //    }
 //
 //  // funktioniert nicht, da irq33 nicht aufgerufen wird
-  }
+  // }
+
+    
+  kprintf("[ERROR]: Kernel stopped!");
 }

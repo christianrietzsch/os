@@ -65,6 +65,12 @@ void print_string(char* string)
   }
 }
 
+void del_last()
+{
+  current -= 1;
+  print_char(' ');
+}
+
 void clear()
 {
   for(int i = current; i < LINE_LENGTH*LINE_ROWS; i++) 

@@ -2,8 +2,8 @@
 #define BOOL_H
 
 typedef enum _bool {
-  false,
-  true,
+  false ,
+  true ,
 } boolean;
 
 #endif

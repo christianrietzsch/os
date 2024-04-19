@@ -1,5 +1,6 @@
 #include "../io/io.h"
 #include "../types/types.h"
+#include "../io/keyboard.h"
 #include "cpu.h"
 
 #define IDT_ENTRIES 256
@@ -52,54 +53,7 @@ struct idt_entry
 
 static struct idt_entry idt[IDT_ENTRIES];
 
-void print_letter(uint8_t scancode)
-{
-  switch (scancode)
-  {
-    case 0x0:
-        kprintf("ERROR");
-        break;
-    case 0x1:
-        kprintf("ESC");
-        break;
-    case 0x2:
-        kprintf("1");
-        break;
-    case 0x3:
-        kprintf("2");
-        break;
-    case 0x4:
-        kprintf("3");
-        break;
-    case 0x5:
-        kprintf("4");
-        break;
-    case 0x6:
-        kprintf("5");
-        break;
-    case 0x7:
-        kprintf("6");
-        break;
-    case 0x8:
-        kprintf("7");
-        break;
-    case 0x9:
-        kprintf("8");
-        break;
-    case 0x10:
-        kprintf("9");
-        break;
-    case 0x11:
-        kprintf("0");
-        break;
-    default:
-        kprintf("%c", scancode);
-        break;
-  }
-}
-
 struct cpu_state* irq_handler(struct cpu_state* cpu) {
-  //kprintf("IRQ\n");
   outb(0x20, 0x20);
   if(cpu->intr < 40)
   {
