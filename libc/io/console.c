@@ -67,7 +67,7 @@ void print_string(char* string)
 
 void del_last()
 {
-  current -= 1;
+  current -= 2;
   print_char(' ');
 }
 
