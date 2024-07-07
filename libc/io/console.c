@@ -69,6 +69,7 @@ void del_last()
 {
   current -= 2;
   print_char(' ');
+  current -= 2;
 }
 
 void clear()
